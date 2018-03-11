@@ -1,0 +1,11 @@
+{
+  "type_bias": 37,
+  "backward_bias_coefficient": 0.925,
+  "coherence_length_source": 0.0015,
+  "target_depth_min": 0.0,
+  "target_depth_max": 0.10,
+  "max_collecting_radius": 10e-4,
+  "max_collecting_angle_deg": 5,
+  "probability_additional_bias": 0.5,
+  "max_relative_contribution_to_bin_per_post_processed_sample": 0.01
+}

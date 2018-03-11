@@ -1,0 +1,16 @@
+{
+  "number_of_runs": 1,
+  "number_of_photons": 10000,
+  "probe_data": {
+    "start_x": -0.015,
+    "distance_Ascans": 0.00006,
+    "end_x": 0.015
+  },
+  "n_ambient_medium": 1.0,
+  "regions": [
+    {"n": 1.0, "mua": 1.5, "mus": 60, "g": 0.9},
+    {"n": 1.0, "mua": 3, "mus": 120, "g": 0.9},
+    {"n": 1.0, "mua": 3, "mus": 120, "g": 0.9},
+    {"n": 1.0, "mua": 3, "mus": 120, "g": 0.9}
+  ]
+}
