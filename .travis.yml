@@ -17,14 +17,16 @@ addons:
       - python3-numpy
       - libboost-all-dev
 
-install:
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
-  - BOOST_URL="https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz"
-  - mkdir -p boost && travis_retry wget --quiet -O - ${BOOST_URL} |  tar --strip-components=1 -xz -C boost
-  - cd boost && ./bootstrap.sh --prefix="${DEPS_DIR}/../boost" 
-  - travis_wait 30 ./b2
-  - ./b2 -d0 intall 
+install: 
+  - |
+      set -e 
+      DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+      mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+      BOOST_URL="https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz"
+      mkdir -p boost && travis_retry wget --quiet -O - ${BOOST_URL} |  tar --strip-components=1 -xz -C boost
+      cd boost && ./bootstrap.sh --with-python-version=3.5 --with-python=/usr/bin/python3.5 --with-python-root=/usr/local/lib/python3.5
+      travis_wait 30 ./b2
+      ./b2 -d0 intall 
 
 script:
   - mkdir build && cd build && cmake .. && make && make install
