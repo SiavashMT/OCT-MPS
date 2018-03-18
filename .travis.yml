@@ -1,0 +1,41 @@
+dist: trusty
+sudo: required
+
+language: cpp
+compiler: gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.9
+      - g++-4.9
+      - clang
+      - python-numpy
+      - python3-dev
+      - python3-numpy
+      - libboost-all-dev
+
+install:
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/../deps"
+  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+  - BOOST_URL="https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz"
+  - mkdir -p boost && wget ${BOOST_URL} && tar --strip-components=1 -xvz boost_1_65_1.tar.gz -C boost
+  - cd boost && ./bootstrap.sh --prefix="${DEPS_DIR}/../boost" 
+  - ./b2
+  - ./b2 intall 
+
+script:
+  - mkdir build && cd build && cmake .. && make && make install
+  - py.test --cov-report term-missing --cov app -v
+
+cache:
+  directories:
+    - ${TRAVIS_BUILD_DIR}/deps   
+  apt: true
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
